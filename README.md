@@ -40,3 +40,5 @@ SAM CLI, version 0.5.0
 $ docker --version
 Docker version 18.03.1-ce, build 9ee9f40
 ```
+
+[Get Started](lesson-01/)
