@@ -1,4 +1,4 @@
-# Deploy to AWS environment
+# Deploy to AWS environment - AWS CLI
 
 In the previous lesson we created the bare minimum code to make a Lambda function to execute locally using sam cli, it worked on simulated environment, but will it work when deployed to real AWS environment ?
 
