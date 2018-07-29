@@ -43,5 +43,5 @@ Docker version 18.03.1-ce, build 9ee9f40
 
 ## Content
 
-[Lesson 01 - Creating a Lambda Function from scratch](lesson-01/)
-[Lesson 02 - Deploy to AWS environment - AWS CLI](lesson-02/)
+* [Lesson 01 - Creating a Lambda Function from scratch](lesson-01/)
+* [Lesson 02 - Deploy to AWS environment - AWS CLI](lesson-02/)
