@@ -51,7 +51,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 
 - [x] Lesson 01 - Creating a Lambda Function from scratch
 - [x] Lesson 02 - Deploy to AWS environment - AWS CLI
-- [ ] Lesson 03 - Deploy to AWS environment - SAM CLI
+- [x] Lesson 03 - Deploy to AWS environment - SAM CLI
 - [ ] Lesson 04 - Complex input / output
 - [ ] Lesson 05 - API Gateway Proxy integration
 - [ ] Lesson 06 - Some back end code (DynamoDb)
