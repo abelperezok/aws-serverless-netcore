@@ -1,6 +1,6 @@
 # Lesson 04 - Complex input / output and logging
 
-In the previous two lessons we we learned how to successfully deploy our code to real AWS environment and test the function by issuing the invoke command.
+In the previous two lessons we learned how to successfully deploy our code to real AWS environment and test the function by issuing the invoke command.
 
 The function is so far not doing much, in fact, it's not even accepting any input, let's fix that.
 
@@ -197,7 +197,7 @@ $ aws lambda invoke --function-name project-lambda-HelloLambda-XY7FZSVPIW0K \
 {"Name":"Abel","Old":false}
 ```
 
-And we see function executing and if we want the logs, we can use again ```sam logs```
+Here we see function executing and if we want the logs, we can use again ```sam logs```
 
 ```shell
 $ sam logs -n HelloLambda --stack-name project-lambda
