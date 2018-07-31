@@ -77,7 +77,7 @@ Successfully created/updated stack - project-lambda
 
 This process takes a little bit more time to complete, since it's communicating with CloudFormation to create a stack. The parameter ```--capabilities``` is required because as part of the stack resources, it will create a new IAM role, yes, the same role we manually created in the last lesson, if we don't provide this parameter, CloudFormation will fail the creation as we need to acknowledge we'll create some IAM resources.
 
-Let's inspect what's in the CLoudFormation stack SAM have just created for us, to do that, CloudFormation CLI provides a command describe-stack-resources.
+Let's inspect what's in the CloudFormation stack SAM have just created for us, to do that, CloudFormation CLI provides a command describe-stack-resources.
 
 ```shell
 $ aws cloudformation describe-stack-resources --stack-name project-lambda
