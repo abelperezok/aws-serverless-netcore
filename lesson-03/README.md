@@ -105,11 +105,11 @@ $ aws cloudformation describe-stack-resources --stack-name project-lambda
 }
 ```
 
-As we can see, there is effectively an IAM role and a Lambda function. Essentially what happened is that SAM template engine has translated the resource type AWS::Serverless::Function to a AWS::Lambda::Function plus a AWS::IAM::Role for us.
+As we can see, there is effectively an IAM role and a Lambda function. Essentially what happened is that SAM template engine has translated the resource type AWS::Serverless::Function into a AWS::Lambda::Function plus a AWS::IAM::Role for us.
 
 ## Invoking the function
 
-After having deployed the function, we can invoke it the same way we did last time: using AWS CLI. One difference is the function and role names seem "distorted", that's a CloudFormation behaviour, it uses the name we give as "local name", then it prepends the stack name and appends a random value to ensure uniqueness.
+After having deployed the function, we can invoke it the same way we did last time: using AWS CLI. One difference is the function and role names seem "distorted", that's a CloudFormation behaviour, it uses the name we give as "logical name", then it prepends the stack name and appends a random value to ensure uniqueness.
 
 In this case, the function is renamed to project-lambda-HelloLambda-OBVQDSBNZJ7C which we can get from the previous command (a much better practice is to use Outputs section in the template, we'll get there in future lessons)
 
