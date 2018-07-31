@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    Sample SAM Template
+
+Globals:
+  Function:
+    Timeout: 60
+    Runtime: dotnetcore2.1
+
+Resources:
+    HelloLambda:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: bin/Debug/netcoreapp2.1/publish/
+        Handler: project.lambda::project.lambda.Function::HelloHandler
+
