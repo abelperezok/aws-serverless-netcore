@@ -1,4 +1,4 @@
-# Lesson 04 - Complex input / output and logging
+# Lesson 05 - Complex input / output and logging
 
 In the previous two lessons we learned how to successfully deploy our code to real AWS environment and test the function by issuing the invoke command.
 
@@ -144,6 +144,10 @@ The project file should look like this after adding the package.
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="1.0.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Amazon.Lambda.Tools" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
