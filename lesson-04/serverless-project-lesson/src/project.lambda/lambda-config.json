@@ -1,0 +1,14 @@
+
+{
+    "region" : "eu-west-1",
+    "configuration" : "Release",
+    "framework"     : "netcoreapp2.1",
+    "function-name" : "HelloLambda",
+    "function-handler" : "project.lambda::project.lambda.Function::HelloHandler",
+    "function-memory-size" : 128,
+    "function-role"        : "HelloLambdaRole",
+    "function-timeout"     : 30,
+    "function-runtime"     : "dotnetcore2.1",
+    "s3-bucket"            : "abelperez-temp",
+    "s3-prefix"            : "project-lambda/"
+}

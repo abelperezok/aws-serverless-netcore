@@ -1,0 +1,10 @@
+
+{
+    "region" : "eu-west-1",
+    "configuration" : "Release",
+    "framework"     : "netcoreapp2.1",
+    "s3-bucket"     : "abelperez-temp",
+    "s3-prefix"     : "project-lambda/",
+    "template"      : "template.yaml",
+    "stack-name"    : "project-lambda"
+}
