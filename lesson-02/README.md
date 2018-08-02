@@ -72,7 +72,7 @@ AWS provides a powerful command line interface to interact with the resources we
 
 Every Lambda function needs a IAM Role (mechanism to get temporary credentials to access resources on our behalf) defining what level of permissions our function will have.
 
-At the very minimum, a Lambda function needs to write to CloudWatch logs, for this kind of scenarios AWS have prepared a ready-made policy (AWSLambdaExecute). To create a role, first we need to stablish the trust relationship policy document and then attach the policy document specifying the permissions that whoever is assuming that role will get.
+At the very minimum, a Lambda function will write to CloudWatch logs, for this kind of scenarios AWS have prepared a ready-made policy (AWSLambdaExecute). To create a role, first we need to stablish the trust relationship policy document and then attach the policy document specifying the permissions that whoever is assuming that role will get.
 
 This is the trust relationship policy document that grants Lambda service the AssumeRole action on our role.
 
@@ -96,7 +96,7 @@ EOM
 Now, we can create the role using the variable previously created.
 
 ```shell
-aws iam create-role \
+$ aws iam create-role \
 --role-name HelloLambdaRole \
 --assume-role-policy-document "$ROLE_POLICY_DOCUMENT"
 ```
@@ -126,7 +126,7 @@ This command should output a JSON with all the information about the newly creat
 }
 ```
 
-With the role being created, let's attach the policy, in this case we'll use a managed policy provided by Amazon ```arn:aws:iam::aws:policy/AWSLambdaExecute```.
+With the role being created, let's attach the policy, in this case we'll use a managed policy provided by Amazon ```arn:aws:iam::aws:policy/AWSLambdaExecute```. Although it's not strictly necessary, it's a good practice for troubleshooting, so let's add it.
 
 ```shell
 $ aws iam attach-role-policy \
