@@ -117,7 +117,7 @@ This way, we can just run the command without that many arguments, only those we
 ```shell
 $ dotnet lambda deploy-function --config-file lambda-config.json
 ```
-### CLeaning up 
+### Cleaning up 
 
 As seen before, we should clean up resources provisioned when not used, with ```dotnet lambda delete-function``` we pass the function name and region or we can still use the same configuration file as above.
 
@@ -223,7 +223,7 @@ Same rule applies if we use a different file name i.e ```serverless-config.json`
 $ dotnet lambda deploy-serverless --config-file serverless-config.json 
 ```
 
-### CLeaning up 
+### Cleaning up 
 
 In this case, it's a much simpler process ```dotnet lambda delete-serverless``` will take care of everything since we rely on CloudFormation to orchestrate all resources.
 
