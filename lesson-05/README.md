@@ -19,30 +19,42 @@ Let's add a new parameter to our function, in this case very uncreative name inp
         }
 ```
 
-This time, instead of a constant text it will output Hello followed by whatever we input to it. We have two methods available to test our latest changes: sam local and redeploy the stack to AWS following the same procedure as in the last lesson. Let's see both, but first, run ```dotnet publish```.
+This time, instead of a constant text it will output Hello followed by whatever we input to it. We have two methods available to test our latest changes: dotnet lambda (real AWS) and sam local (local environment).
 
 ### Testing on AWS
 
-* Run ```sam package ... ``` command.
-* Run ```sam deploy ... ``` command.
-* Grab the function name from the stack resources.
-* Run this invoke command:
+As seen in the previous lesson, we'll use ```dotnet lambda``` to deploy to AWS.
 ```shell
-$ aws lambda invoke \
---function-name project-lambda-HelloLambda-XY7FZSVPIW0K \
---payload '{"name":"Abel"}' \
-output.txt \
-&& cat output.txt
+$ dotnet lambda deploy-serverless --config-file serverless-config.json
 ```
-Assuming your function name is 'project-lambda-HelloLambda-XY7FZSVPIW0K', we are passing some payload, which is a JSON to be passed to our function, since we are not doing any parsing, raw JSON will be in the output.
 
+Don't forget to grab the actual function name from the CloudFormation stack.
+```shell
+$ aws cloudformation describe-stack-resources --stack-name project-lambda
 ```
-{
-    "ExecutedVersion": "$LATEST", 
-    "StatusCode": 200
-}
-Hello {"name":"Abel"}!
+
+Now invoke the function.
+```shell
+$ dotnet lambda invoke-function \
+--function-name project-lambda-HelloLambda-6G0W33QZN906 \
+--payload '{"name":"Abel"}' \
+--region eu-west-1
+
+Amazon Lambda Tools for .NET Core applications (2.2.0)
+Project Home: https://github.com/aws/aws-extensions-for-dotnet-cli, https://github.com/aws/aws-lambda-dotnet
+	
+Payload:
+{"Name":"Abel","Old":false}
+
+Log Tail:
+START RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d Version: $LATEST
+Hello Abel, you are now 0END RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d
+REPORT RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d	Duration: 2957.62 ms	Billed Duration: 3000 ms 	Memory Size: 128 MB	Max Memory Used: 54 MB	
 ```
+
+Assuming your function name is 'project-lambda-HelloLambda-6G0W33QZN906', we are passing some payload, which is a JSON to be passed to our function, since we are not doing any parsing, raw JSON is displayed in the output (after Payload in the output).
+
+Alternatively we could use --config-file serverless-config.json instead of --region parameter and it will be taken from the file.
 
 ### Testing with SAM local
 
@@ -191,14 +203,21 @@ namespace project.lambda
 Once rebuilt and published, we can invoke and see the output.
 
 ```shell
-$ aws lambda invoke --function-name project-lambda-HelloLambda-XY7FZSVPIW0K \
---payload '{"Name":"Abel","Age":"33"}' output.txt \
-&& cat output.txt
-{
-    "ExecutedVersion": "$LATEST", 
-    "StatusCode": 200
-}
+$ dotnet lambda invoke-function \
+--function-name project-lambda-HelloLambda-6G0W33QZN906 \
+--payload '{"Name":"Abel","Age":"33"}' \
+--region eu-west-1
+
+Amazon Lambda Tools for .NET Core applications (2.2.0)
+Project Home: https://github.com/aws/aws-extensions-for-dotnet-cli, https://github.com/aws/aws-lambda-dotnet
+	
+Payload:
 {"Name":"Abel","Old":false}
+
+Log Tail:
+START RequestId: 8263a8f7-96b0-11e8-85a6-cb18dea79a01 Version: $LATEST
+Hello Abel, you are now 33END RequestId: 8263a8f7-96b0-11e8-85a6-cb18dea79a01
+REPORT RequestId: 8263a8f7-96b0-11e8-85a6-cb18dea79a01	Duration: 12.33 ms	Billed Duration: 100 ms 	Memory Size: 128 MB	Max Memory Used: 57 MB	
 ```
 
 Here we see function executing and if we want the logs, we can use again ```sam logs```
