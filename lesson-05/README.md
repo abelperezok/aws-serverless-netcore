@@ -48,7 +48,7 @@ Payload:
 
 Log Tail:
 START RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d Version: $LATEST
-Hello Abel, you are now 0END RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d
+END RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d
 REPORT RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d	Duration: 2957.62 ms	Billed Duration: 3000 ms 	Memory Size: 128 MB	Max Memory Used: 54 MB	
 ```
 
