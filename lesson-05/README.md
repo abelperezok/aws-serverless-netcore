@@ -54,7 +54,7 @@ REPORT RequestId: 2b4d9d65-96af-11e8-bca8-25f15b5c4a0d	Duration: 2957.62 ms	Bill
 
 Assuming your function name is 'project-lambda-HelloLambda-6G0W33QZN906', we are passing some payload, which is a JSON to be passed to our function, since we are not doing any parsing, raw JSON is displayed in the output (after Payload in the output).
 
-Alternatively we could use --config-file serverless-config.json instead of --region parameter and it will be taken from the file.
+We could've used --config-file serverless-config.json instead of --region parameter and it would have been taken from the configuration file.
 
 ### Testing with SAM local
 
