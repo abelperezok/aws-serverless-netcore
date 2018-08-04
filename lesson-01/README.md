@@ -125,7 +125,7 @@ Important points about this first template:
 * CodeUri points to our publish directory where it will expect to find all our files.
 * Handler is expressed using the format Assembly::Namespace.ClassName::MethodName
 
-## Test the function locally
+## Test the function locally using SAM local invoke
 
 With the compiled assemblies and the template in place, we can invoke the function using ```sam cli``` to see the output.
 
@@ -144,5 +144,29 @@ Hello Lambda!
 ```
 
 The first time we run this command docker will download the image for the corresponding runtime and it will take longer, subsequent invocations won't take that long.
+
+## Test the function locally using SAM Lambda local endpoint
+
+Another way to take advantage of SAM local is to use Lambda local endpoint which runs a replica of the Lambda API locally, that means that we can use the exact same AWS CLI Lambda API calls only changing the endpoint url to the local one created by sam.
+
+First we start the Lambda local endpoint (optionally we can send it to background) which by default will listen on localhost:3001.
+
+```shell
+$ sudo sam local start-lambda &
+```
+Now, using the Lambda CLI we call invoke as we would to test a lambda, but overriding the url endpoint. Next we examine the log.txt file et voilà!
+
+```shell
+$ aws lambda invoke --function-name HelloLambda --endpoint-url=http://127.0.0.1:3001 log.txt
+$ cat log.txt 
+Hello Lambda!
+```
+Tear down the endpoint, assuming that was the background process 1, let's bring it back to foreground and Ctrl+C to stop it.
+
+```shell
+$ fg 1
+sudo sam local start-lambda
+^C
+```
 
 We've just discovered what happens behind the scenes when we invoke Lambda functions.
