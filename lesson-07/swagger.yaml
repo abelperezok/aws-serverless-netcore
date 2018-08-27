@@ -1,0 +1,82 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: Hello API
+  description: A simple Rest API written using OpenAPI Specification (swagger)
+
+paths:
+  /hello:
+    get:
+      summary: Sample endpoint
+      description: Displays a hello message.
+      responses:
+        200:
+          description: A hello message
+          schema:
+            properties:
+              message:
+                type: string
+      x-amazon-apigateway-integration:
+        type: mock
+        requestTemplates:
+          application/json: |
+            {
+              "statusCode" : 200
+            }
+        responses:
+          "default":
+            statusCode: "200"
+            responseTemplates:
+              application/json: |
+                {
+                  "message": "hello 123"
+                }
+  /hello/{id}:
+    get:
+      summary: Sample endpoint with path parameter id
+      description: Displays a hello message.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: specific id
+          type: integer
+      responses:
+        200:
+          description: A sample id and name
+          schema:
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+        404:
+          description: The provided id was not found
+      x-amazon-apigateway-integration:
+        type: mock
+        requestTemplates:
+          application/json: |
+            {
+            #if( $input.params('id') == 123 )
+              "statusCode": 200
+            #else
+              "statusCode": 404
+            #end
+            }
+        responses:
+          "default":
+            statusCode: "200"
+            responseTemplates:
+              application/json: |
+                {
+                  "id": "123",
+                  "name": "name123"
+                }
+          "404":
+            statusCode: "404"
+            responseTemplates:
+              application/json: |
+                {
+                  "message": "ID Not Found"
+                }
