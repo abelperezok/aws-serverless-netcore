@@ -49,6 +49,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 * [Lesson 04 - Deploy to AWS environment - dotnet lambda](lesson-04/)
 * [Lesson 05 - Complex input / output and logging](lesson-05/)
 * [Lesson 06 - API Gateway - Introduction](lesson-06/)
+* [Lesson 07 - API Gateway - OpenAPI (Swagger) Specification](lesson-07/)
 
 ## Progress
 
@@ -58,7 +59,8 @@ Docker version 18.03.1-ce, build 9ee9f40
 - [x] Lesson 04 - Deploy to AWS environment - dotnet lambda
 - [x] Lesson 05 - Complex input / output and logging
 - [x] Lesson 06 - API Gateway - Introduction
-- [ ] Lesson 07 - API Gateway - Lambda integration
-- [ ] Lesson 08 - API Gateway - Proxy integration
-- [ ] Lesson 09 - Some back end code (DynamoDb)
-- [ ] Lesson 10 - TBD
+- [x] Lesson 07 - API Gateway - OpenAPI (Swagger) Specification
+- [ ] Lesson 08 - API Gateway - Lambda integration
+- [ ] Lesson 09 - API Gateway - Proxy integration
+- [ ] Lesson 10 - Some back end code (DynamoDb)
+- [ ] Lesson 11 - TBD
