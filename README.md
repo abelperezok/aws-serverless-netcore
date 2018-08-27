@@ -57,7 +57,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 - [x] Lesson 03 - Deploy to AWS environment - SAM CLI
 - [x] Lesson 04 - Deploy to AWS environment - dotnet lambda
 - [x] Lesson 05 - Complex input / output and logging
-- [ ] Lesson 06 - API Gateway - Introduction
+- [x] Lesson 06 - API Gateway - Introduction
 - [ ] Lesson 07 - API Gateway - Lambda integration
 - [ ] Lesson 08 - API Gateway - Proxy integration
 - [ ] Lesson 09 - Some back end code (DynamoDb)
