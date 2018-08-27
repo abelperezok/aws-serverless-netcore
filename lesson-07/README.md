@@ -11,7 +11,7 @@ The [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/ma
 * Available operations on each path (get /resources)
 * Input/Output for each operation
 
-API Gateway allows us to import an API described in a "swagger file" which simplifies the development of an API. Details of swagger syntax is out of the scope of this guide, there a very good tutorial [here](https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-1-introduction/) which you can follow to learn more. 
+API Gateway allows us to import an API described in a "swagger file" which simplifies the development of an API. Details of swagger syntax is out of the scope of this guide, there is a very good tutorial [here](https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-1-introduction/) which you can follow to learn more. 
 
 The Rest API created in the previous lesson can be rewritten using swagger. API Gateway also provides extensions to swagger specification to describe integration, authentication, validation, amongst other things. More info on [AWS docs](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions.html).
 
