@@ -1,8 +1,6 @@
 # Lesson 06 - API Gateway - Introduction
 
-Amazon API Gateway is a managed service that helps us creating REST APIs which can act as a front end to any existing back end.
-
-There are some important concepts in this service that I'll clarify before proceeding, since they can be sometimes confusing.
+Amazon API Gateway is a managed service that helps us creating REST APIs which can act as a front end to any existing back end. There are some important concepts in this service that I'll clarify before proceeding, since they can be sometimes confusing.
 
 ## Rest API
 

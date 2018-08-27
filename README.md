@@ -48,6 +48,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 * [Lesson 03 - Deploy to AWS environment - SAM CLI](lesson-03/)
 * [Lesson 04 - Deploy to AWS environment - dotnet lambda](lesson-04/)
 * [Lesson 05 - Complex input / output and logging](lesson-05/)
+* [Lesson 06 - API Gateway - Introduction](lesson-06/)
 
 ## Progress
 
