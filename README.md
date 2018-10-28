@@ -50,6 +50,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 * [Lesson 05 - Complex input / output and logging](lesson-05/)
 * [Lesson 06 - API Gateway - Introduction](lesson-06/)
 * [Lesson 07 - API Gateway - OpenAPI (Swagger) Specification](lesson-07/)
+* [Lesson 08 - API Gateway - CloudFormation](lesson-08/)
 
 ## Progress
 
@@ -60,7 +61,8 @@ Docker version 18.03.1-ce, build 9ee9f40
 - [x] Lesson 05 - Complex input / output and logging
 - [x] Lesson 06 - API Gateway - Introduction
 - [x] Lesson 07 - API Gateway - OpenAPI (Swagger) Specification
-- [ ] Lesson 08 - API Gateway - Lambda integration
-- [ ] Lesson 09 - API Gateway - Proxy integration
-- [ ] Lesson 10 - Some back end code (DynamoDb)
-- [ ] Lesson 11 - TBD
+- [x] Lesson 08 - API Gateway - CloudFormation
+- [ ] Lesson 09 - API Gateway - Lambda integration
+- [ ] Lesson 10 - API Gateway - Proxy integration
+- [ ] Lesson 11 - Some back end code (DynamoDb)
+- [ ] Lesson 12 - TBD
