@@ -1,4 +1,4 @@
-# Lesson 07 - Lesson 08 - API Gateway - CloudFormation
+# Lesson 08 - API Gateway - CloudFormation
 
 In previous lessons we've seen how to build a REST API using API Gateway both from scratch purely AWS CLI and importing it from a Open API specification file. In this lesson, we'll implement the same REST API but with AWS CloudFormation.
 
@@ -152,7 +152,7 @@ When configuring IntegrationResponses it's important to set correctly the Select
 
 Once we have defined all we need to have a fully functional REST API using API Gateway, it's time to create a deployment resource. This is a particular resource in this scenario, because of the way API Gateway works, two important points to observe here:
 
-* We have to create a new deployment every time we want to make a change to be "deployed" to a specific Stage, therefore the timestamp at the end of the name in the example, ideally this kind of tasks can be automated when being part of a Ci/CD pipeline.
+* We have to create a new deployment every time we want to make a change to be "deployed" to a specific Stage, hence the timestamp at the end of the name in the example, ideally this kind of tasks can be automated when being part of a Ci/CD pipeline.
 * It requires an explicit dependency on each Api Gateway Method we'd like to be included in the deployment, this is achieved by using DependsOn property available on every resource in CloudFormation. 
 
 ### Section 6 - Template Outputs
@@ -220,12 +220,18 @@ $ curl -X GET https://76xgf0jwc2.execute-api.eu-west-1.amazonaws.com/dev/hello/1
 }
 ```
 
-As we can see, using a swagger definition is a much clearer approach as it allows us to keep it under source control as part of the application code base. Therefore it can be included in any CI/CD pipeline as part of daily code commits.
+As we can see, using a CloudFormation template is another approach that allows to keep the API resources under source control as part of the application code base. Therefore it can be included in any CI/CD pipeline as part of daily code commits.
 
 ## Cleaning up
 
-Same as in the previous lesson, we can delete the API once we no longer need it.
+When we are done with the REST API, we can delete the stack using the ```aws cloudformation delete-stack``` command.
 
 ```shell
-$ aws apigateway delete-rest-api --rest-api-id ld49h82zr2
+$ aws cloudformation delete-stack --stack-name project-lambda-cfn-api
+```
+
+This commands produces no output, and the deletion might not be immediate, in which case we can use the ```wait``` command.
+
+```shell
+$ aws cloudformation wait stack-delete-complete --stack-name project-lambda-cfn-api
 ```
