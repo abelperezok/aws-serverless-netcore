@@ -63,7 +63,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 - [x] Lesson 06 - API Gateway - Introduction
 - [x] Lesson 07 - API Gateway - OpenAPI (Swagger) Specification
 - [x] Lesson 08 - API Gateway - CloudFormation
-- [ ] Lesson 09 - API Gateway - Lambda integration
+- [x] Lesson 09 - API Gateway - Lambda integration
 - [ ] Lesson 10 - API Gateway - Proxy integration
 - [ ] Lesson 11 - Some back end code (DynamoDb)
 - [ ] Lesson 12 - TBD
