@@ -51,6 +51,7 @@ Docker version 18.03.1-ce, build 9ee9f40
 * [Lesson 06 - API Gateway - Introduction](lesson-06/)
 * [Lesson 07 - API Gateway - OpenAPI (Swagger) Specification](lesson-07/)
 * [Lesson 08 - API Gateway - CloudFormation](lesson-08/)
+* [Lesson 09 - API Gateway - Lambda integration](lesson-09/)
 
 ## Progress
 
