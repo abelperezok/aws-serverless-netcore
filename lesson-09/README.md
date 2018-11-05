@@ -6,6 +6,10 @@ In this lesson we'll see how to integrate a Lambda function with API Gateway usi
 
 In the following sections we will create a Lambda integration using three different implementations in order to better understand the details. First, using purely AWS CLI, then from a Swagger file and finally with a CloudFormation template.
 
+* [AWS CLI](#api-gateway-lambda-integration-using-aws-cli)
+* [Open API (Swagger)](#api-gateway-lambda-integration-using-open-api-swagger)
+* [CloudFormation](#api-gateway-lambda-integration-using-cloudformation)
+
 ## Prepare the Lambda function
 
 In this section we'll deploy a Lambda function which will be common to the first and second integration implementations. The code will be the same as in lesson 05 and can be copied from there to follow along. In a directory with files Function.cs and project.lambda.csproj we'll create and deploy the Lambda function by running the following commands (more details in lesson 05).
@@ -53,11 +57,11 @@ $ dotnet lambda invoke-function -fn HelloLambda -p "{\"Name\":\"Abel\",\"Age\":8
 
 ## API Gateway Lambda integration using AWS CLI
 
-First, we need an API and at least one resource with a method, let's create them.
+We need an API and at least one resource with a method, let's create them.
 
 ### Create the REST API & resource
 
-Following the same procedure as in lesson 60, we create a REST API with one resource listening on /hello and a GET Method. Each command's output returns ids used in the next command.
+Following the same procedure as in lesson 06, we create a REST API with one resource listening on /hello and a GET Method. Each command's output returns ids used in the next command.
 
 ```shell
 $ aws apigateway create-rest-api --name project-api-cli
@@ -105,7 +109,7 @@ $ cat > response-template.json <<EOM
 EOM
 ```
 
-This example is also escaped, it reads from the Lambda output and creates a new JSON with a Message property and a simple logic to adapt the content, this is the non-escaped version:
+This example is also escaped, it reads from the Lambda output and creates a new JSON with a Message property and a simple logic to adapt the content, this is the unescaped version:
 
 ```json
 #set ($root=$input.path('$'))
@@ -181,7 +185,7 @@ $ curl -X GET "https://ryk941lawh.execute-api.eu-west-1.amazonaws.com/dev/hello?
 
 ## API Gateway Lambda integration using Open API (Swagger)
 
-In this implementation we'll declare a swagger file where apart from the API definition, there will be the API Gateway integration extensions that are not part of the original specification. They are identified by **x-amazon-apigateway prefix**.
+In this implementation we'll declare a swagger file where apart from the API definition, there will be the API Gateway integration extensions that are not part of the original specification. They are identified by **x-amazon-apigateway** prefix.
 
 ### Create the Swagger file
 
@@ -249,7 +253,7 @@ In this section, we declare the resource /hello and a GET method with two parame
                 }
 ```
 
-Here we use the swagger extension x-amazon=apigateway-integration where we define what Lambda function will be invoked. The request template and response template are the same as above, just now taking advantage of YAML syntax that allows multi-line text. 
+Here we use the swagger extension **x-amazon-apigateway-integration** where we define what Lambda function will be invoked. The request template and response template are the same as above, just now taking advantage of YAML syntax that allows multi-line text. 
 
 ### Import the REST API
 
@@ -281,7 +285,7 @@ $ aws lambda add-permission --function-name HelloLambda \
 --statement-id project-api-swagger-inovke-lambda \
 --action lambda:InvokeFunction \
 --principal apigateway.amazonaws.com \
---source-arn arn:aws:execute-api:eu-west-1:976153948458:fjw1w4q0q8/*/GET/hello
+--source-arn arn:aws:execute-api:eu-west-1:123123123123:fjw1w4q0q8/*/GET/hello
 ```
 
 ### Deploy & test the API
@@ -433,7 +437,7 @@ Once again, Lambda permission referencing both the Lambda function and the REST 
       - ApiGatewayMethodHelloGet
 ```
 
-A Deployment resource which contains a timestamp in the name, just like in the previous lesson, so every time we deploy, force the creation of a new resource (and the deletion of the previous one). It's important not to forget to include the explicit dependency on the methods that should be included in the deployment.
+A Deployment resource which contains a timestamp in the name, just like in the previous lesson, so every time we deploy, it forces the creation of a new resource (and the deletion of the previous one). It's important not to forget to include the explicit dependency on the methods that should be included in the deployment.
 
 ```yaml
 Outputs:
@@ -449,7 +453,10 @@ Finally, some output to get the endpoint to test the API.
 ### Deploy the stack & test the endpoint
 
 ```shell
-$ aws cloudformation deploy --template-file cloudformation.yaml --stack-name project-api-cfn --capabilities CAPABILITY_IAM
+$ aws cloudformation deploy \
+--template-file cloudformation.yaml \
+--stack-name project-api-cfn \
+--capabilities CAPABILITY_IAM
 ```
 
 Now get the outputs.
