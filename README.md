@@ -13,7 +13,13 @@ $ dotnet new lambda.EmptyFunction --name HelloLambda
 [AWS SAM CLI](https://github.com/awslabs/aws-sam-cli)
 
 ```shell
-$ sam init -r dotnetcore2.0 -n HelloLambda
+$ sam init -r dotnetcore2.1 -n HelloLambda
+```
+
+[Serverless Framework](https://serverless.com/framework/docs/getting-started/)
+
+```shell
+$ serverless create --template aws-csharp --path HelloLambda
 ```
 
 While this is great to just get started and quickly see "something working", it doesn't help us to understand the underlying technology plumbing logic that every time is more complex as we build on top of previous abstraction layers. 
