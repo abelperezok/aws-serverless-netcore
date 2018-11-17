@@ -225,10 +225,8 @@ Just like the previous example, the first section contains general metadata abou
           description: A normal output name / old
           schema:
             properties:
-              Name:
+              Message:
                 type: string
-              Old:
-                type: boolean
 ```
 
 In this section, we declare the resource /hello and a GET method with two parameters: **name** and **age** as well as a response with status code 200.
