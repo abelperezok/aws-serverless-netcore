@@ -87,15 +87,17 @@ Assuming the function arn from the steps above is 'arn:aws:lambda:eu-west-1:1231
 
 ```shell
 $ aws apigateway put-integration --rest-api-id ryk941lawh \
---resource-id bay12i --http-method GET --type AWS \
+--resource-id bay12i --http-method GET \
+--type AWS \
 --integration-http-method POST \
 --uri arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:123123123123:function:HelloLambda/invocations \
 --request-templates file://request-template.json
 ```
 
 * --rest-api-id and --resource-id from the commands above.
+* --type AWS indicates the integration with an AWS service, Lambda in this case.
 * --http-method has to match one of the methods for the chosen resource, GET in this case is the only one.
-* --integration-http-method is always POST.
+* --integration-http-method is always POST for Lambda invocations.
 * --uri is in the form of arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/{function-arn}/invocations .
 * --request-templates we use the file previously created.
 

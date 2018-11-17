@@ -32,7 +32,7 @@ paths:
                 type: boolean
       x-amazon-apigateway-integration:
         type: aws
-        uri: arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:976153948458:function:HelloLambda/invocations
+        uri: arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:12123123123:function:HelloLambda/invocations
         httpMethod: POST
         requestTemplates:
           application/json: |
