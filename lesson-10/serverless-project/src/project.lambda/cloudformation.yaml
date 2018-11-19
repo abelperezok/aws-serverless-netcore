@@ -1,0 +1,98 @@
+Description: Template to create a serverless web api 
+
+Resources:
+  AWSLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: PermitLambda
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              Resource: arn:aws:logs:*:*:*
+
+  HelloLambdaProxy:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: project.lambda::project.lambda.Function::HelloHandler
+      Role: !GetAtt AWSLambdaExecutionRole.Arn
+      Code:
+        S3Bucket: abelperez-temp
+        S3Key: project-lambda/project-lambda-proxy.zip
+      Runtime: dotnetcore2.1
+      Timeout: 30
+
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: Serverless API Proxy
+      Description: Serverless API - Using CloudFormation and Swagger - Proxy Integration
+
+  ApiGatewayResourceHello:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
+      PathPart: hello
+      RestApiId: !Ref ApiGatewayRestApi
+
+  ApiGatewayMethodHelloPost:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: POST
+      RequestParameters: {}
+      ResourceId: !Ref ApiGatewayResourceHello
+      RestApiId: !Ref ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri: !Sub
+          - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RefFunc}/invocations
+          - { RefFunc: !GetAtt HelloLambdaProxy.Arn }
+        IntegrationResponses:
+          - StatusCode: 200
+            SelectionPattern: ''
+      MethodResponses:
+        - ResponseParameters: {}
+          ResponseModels: {}
+          StatusCode: 200
+
+  ApiGatewayLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt HelloLambdaProxy.Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub 
+        - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RefApi}/*/*/*
+        - { RefApi: !Ref ApiGatewayRestApi }
+
+  ApiGatewayDeployment201811172102:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+      StageName: dev
+    DependsOn:
+      - ApiGatewayMethodHelloPost
+
+Outputs:
+  ApiEndpoint:
+    Description: "Endpoint to communicate with the API"
+    Value: !Sub 
+      - https://${RefApi}.execute-api.${AWS::Region}.amazonaws.com/dev/hello
+      - RefApi: !Ref ApiGatewayRestApi

@@ -1,0 +1,37 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: Project API Swagger Proxy
+  description: A simple API written using OpenAPI Specification with Lambda Proxy integration
+
+paths:
+  /hello:
+    post:
+      summary: Simple Lambda integration
+      description: Simple Lambda integration with a function previously created.
+      parameters:
+        - name: name
+          in: body
+          required: true
+          description: The person's name
+          type: string
+        - name: age
+          in: body
+          required: true
+          description: The person's age
+          type: integer
+      responses:
+        200:
+          description: A normal output name / old
+          schema:
+            properties:
+              Message:
+                type: string
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        uri: arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:976153948458:function:HelloLambdaProxy/invocations
+        httpMethod: POST
+        responses:
+          "default":
+            statusCode: 200
