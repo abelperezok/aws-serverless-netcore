@@ -129,7 +129,7 @@ $ aws apigateway create-resource --rest-api-id poe2oi69ya --parent-id t72rhyoya1
 $ aws apigateway put-method --rest-api-id poe2oi69ya --resource-id csg1ls --http-method POST --authorization-type "NONE"
 ```
 
-Notice in this case we don't set any method response (nothing about the response will be set) since Lambda itself is responsible for generating the final HTTP response to the user agent. As described before it's a much simpler integration process, it requires less configurations. 
+Notice in this case we don't set any method response (nothing about the response will be set) since Lambda itself is responsible for generating the final HTTP response to the user agent. As described before it's a much simpler integration process, it requires less configuration. 
 
 ### Create Proxy Integration
 
