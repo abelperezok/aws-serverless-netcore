@@ -120,7 +120,7 @@ We need an API and at least one resource with a method, let's create them.
 
 ### Create the REST API & resource
 
-Following the same procedure as in lesson 06, we create a REST API with one resource listening on /hello and a GET Method. Each command's output returns ids used in the next command.
+Following the same procedure as in lesson 06, we create a REST API with one resource listening on /hello and a POST Method. Each command's output returns ids used in the next command.
 
 ```shell
 $ aws apigateway create-rest-api --name project-api-proxy-cli
