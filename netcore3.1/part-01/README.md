@@ -187,7 +187,7 @@ Tear down the endpoint, assuming that was the background process 1, let's bring 
 
 ```shell
 $ fg 1
-sudo sam local start-lambda
+sam local start-lambda
 ^C
 ```
 
