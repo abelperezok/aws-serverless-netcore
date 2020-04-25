@@ -55,7 +55,7 @@ Docker version 19.03.8, build afacb8b7f0
 
 ## Content
 
-- [x] [Part 01 - Creating a Lambda Function from scratch](netcore3.1/)
+- [x] [Part 01 - Creating a Lambda Function from scratch](netcore3.1/part-01/)
 - [ ] Part 02 - Deploy to AWS environment - AWS CLI
 - [ ] Part 03 - Deploy to AWS environment - SAM CLI
 - [ ] Part 04 - Deploy to AWS environment - dotnet lambda
