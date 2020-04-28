@@ -21,7 +21,7 @@ export PATH=$PATH:/home/abel/.dotnet/tools
 ```
 ## Deploying a function
 
-If we only want to deploy a function in isolation, the command to run is ```dotnet lambda deploy-function```. Before trying to deploy a function, as seen in previous part, it's required to have already a role in place. Let's recap the role creation process.
+If we only want to deploy a function in isolation, the command to run is ```dotnet lambda deploy-function```. Before trying to deploy a function, as seen in previous parts, it's required to have already a role in place. Let's recap the role creation process.
 
 ### Creating the role
 
@@ -57,7 +57,7 @@ The command ```deploy-function``` takes more parameters than its counterpart in 
 In our example, it will look like this:
 
 ```shell
-dotnet lambda deploy-function \
+$ dotnet lambda deploy-function \
 --function-name HelloLambda \
 --s3-bucket abelperez-temp \
 --s3-prefix project-lambda/ \
@@ -284,7 +284,7 @@ We can see it has indeed created both the role and the function as it uses Cloud
 * Invokes ```dotnet publish``` command using the specified configuration i.e. Release.
 * Creates the zip file containing all binaries and dependencies.
 * Uploads the package to S3 using the bucket and prefix set.
-* Creates the CloudFormation stack using the specified template and wait for the stack to complete.
+* Creates the CloudFormation stack using the specified template and waits for the stack to complete.
 
 ### Invoking the function
 
