@@ -58,7 +58,7 @@ Docker version 19.03.8, build afacb8b7f0
 - [x] [Part 01 - Creating a Lambda Function from scratch](netcore3.1/part-01/)
 - [x] [Part 02 - Deploy to AWS environment - AWS CLI](netcore3.1/part-02/)
 - [x] [Part 03 - Deploy to AWS environment - SAM CLI](netcore3.1/part-03/)
-- [ ] Part 04 - Deploy to AWS environment - dotnet lambda
+- [x] [Part 04 - Deploy to AWS environment - dotnet lambda](netcore3.1/part-04/)
 - [ ] Part 05 - Complex input / output and logging
 - [ ] Part 06 - API Gateway - Introduction
 - [ ] Part 07 - API Gateway - OpenAPI (Swagger) Specification
