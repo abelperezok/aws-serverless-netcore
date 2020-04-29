@@ -1,0 +1,9 @@
+
+{
+    "region" : "eu-west-1",
+    "configuration" : "Debug",
+    "s3-bucket"     : "abelperez-temp",
+    "s3-prefix"     : "project-lambda/",
+    "template"      : "template.yaml",
+    "stack-name"    : "project-lambda"
+}
