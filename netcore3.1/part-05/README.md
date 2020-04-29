@@ -19,7 +19,7 @@ Let's add a new parameter to our function, in this case very uncreative name inp
         }
 ```
 
-This time, instead of a constant text it will output Hello followed by whatever we input to it. We have two methods available to test our latest changes: dotnet lambda (real AWS) and sam local (local environment).
+This time, instead of a constant text it will output Hello followed by whatever we input to it. We have three methods available to test our latest changes: dotnet lambda, AWS CLI and sam local.
 
 ### Testing on AWS
 
@@ -36,6 +36,17 @@ Don't forget to grab the actual function name from the CloudFormation stack.
 ```shell
 $ aws cloudformation describe-stack-resources --stack-name project-lambda \
 --query StackResources[*].[ResourceType,PhysicalResourceId]
+
+[
+    [
+        "AWS::Lambda::Function",
+        "project-lambda-HelloLambda-1N5DP8MQFLJHT"
+    ],
+    [
+        "AWS::IAM::Role",
+        "project-lambda-HelloLambdaRole-BDBXWNSOMLUZ"
+    ]
+]
 ```
 
 #### Invoke using dotnet lambda
@@ -133,7 +144,7 @@ Hello Abel!
 
 Given that our Lambda functions will execute in a headless way, logging is essential for monitoring and telemetry purposes. Lambda runtime provides the mechanisms to log via the ```ILambdaContext``` interface which can be added as an optional parameter to our function.
 
-This parameter provides a Logger property with a Log method receiving a string as parameter, very simple interface. This is how our function looks now. A using statement is also required ```using Amazon.Lambda.Core;```
+This parameter provides a Logger property with methods Log and LogLine receiving a string as parameter, very simple interface. This is how our function looks now. A using statement is also required ```using Amazon.Lambda.Core;```
 
 ```csharp
         public Stream HelloHandler(Stream input, ILambdaContext context)
@@ -242,7 +253,7 @@ namespace project.lambda
     
     public class Function
     {
-	    public LambdaOutput HelloHandler(LambdaInput input, ILambdaContext context)
+        public LambdaOutput HelloHandler(LambdaInput input, ILambdaContext context)
         {
             context.Logger.LogLine($"Hello {input.Name}, you are now {input.Age}");
             return new LambdaOutput { Name = input.Name, Old = input.Age > 50 };
@@ -258,12 +269,14 @@ A sample input would be in the following format, as per the input class defined 
 {"Name":"Abel","Age":33}
 ```
 
-Note that the Age as a numeric value is expressed without quotes. Now, let's invoke sam local with this sample input.
+**Note** that the Age as a numeric value is expressed without quotes. Now, let's invoke sam local with this sample input.
 
 ### Test locally using SAM local
 
+Notice the extra - after the -e parameter.
+
 ```shell
-echo -n '{"Name":"Abel","Age":33}' | sam local invoke -e - HelloLambda
+$ echo -n '{"Name":"Abel","Age":33}' | sam local invoke -e - HelloLambda
 
 Reading invoke payload from stdin (you can also pass it from file with --event)
 Invoking project.lambda::project.lambda.Function::HelloHandler (dotnetcore3.1)
