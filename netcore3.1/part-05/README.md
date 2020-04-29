@@ -315,9 +315,58 @@ $ aws lambda invoke \
 {"Name":"Abel","Old":false}
 ```
 
-### Checking logs 
+#### Checking logs using AWS logs
 
-Here we see function executing and if we want the logs, we can use again ```sam logs```
+First, get the log stream name given the lambda function name, the log group names usually go in the form of "/aws/lambda/lambda-function-name" 
+
+```shell
+$ aws logs describe-log-streams \
+--log-group-name /aws/lambda/project-lambda-HelloLambda-1N5DP8MQFLJHT \
+--max-items 1 --descending \
+--query logStreams[0].logStreamName 
+
+"2020/04/29/[$LATEST]95f5b75312d74e2ebb01814db08440d7"
+```
+
+With that value we can now request the logs events for that particular stream.
+
+
+```shell
+$ aws logs get-log-events \
+--log-group-name /aws/lambda/project-lambda-HelloLambda-1N5DP8MQFLJHT \
+--log-stream-name '2020/04/29/[$LATEST]9189b2a8f9174e2f8717fce480f8c63d'
+
+{
+    "events": [
+        {
+            "timestamp": 1588165714132,
+            "message": "START RequestId: e911b1db-a0b3-4d3a-989d-05300dc7aec9 Version: $LATEST\n",
+            "ingestionTime": 1588165723192
+        },
+        {
+            "timestamp": 1588165714445,
+            "message": "Hello Abel, you are now 33\n",
+            "ingestionTime": 1588165723192
+        },
+        {
+            "timestamp": 1588165714565,
+            "message": "END RequestId: e911b1db-a0b3-4d3a-989d-05300dc7aec9\n",
+            "ingestionTime": 1588165723192
+        },
+        {
+            "timestamp": 1588165714565,
+            "message": "REPORT RequestId: e911b1db-a0b3-4d3a-989d-05300dc7aec9\tDuration: 432.64 ms\tBilled Duration: 500 ms\tMemory Size: 128 MB\tMax Memory Used: 62 MB\tInit Duration: 164.98 ms\t\n",
+            "ingestionTime": 1588165723192
+        }
+    ],
+    "nextForwardToken": "f/35417278933556379891531773690545303018720618995118702595",
+    "nextBackwardToken": "b/35417278923900157220568013870260337006663878463029182464"
+}
+```
+
+#### Checking logs using SAM logs
+
+As seen earlier, we can see the logs in a more straightforward way.
 
 ```shell
 $ sam logs -n HelloLambda --stack-name project-lambda
