@@ -59,7 +59,7 @@ Docker version 19.03.8, build afacb8b7f0
 - [x] [Part 02 - Deploy to AWS environment - AWS CLI](netcore3.1/part-02/)
 - [x] [Part 03 - Deploy to AWS environment - SAM CLI](netcore3.1/part-03/)
 - [x] [Part 04 - Deploy to AWS environment - dotnet lambda](netcore3.1/part-04/)
-- [ ] Part 05 - Complex input / output and logging
+- [x] [Part 05 - Complex input / output and logging](netcore3.1/part-05/)
 - [ ] Part 06 - API Gateway - Introduction
 - [ ] Part 07 - API Gateway - OpenAPI (Swagger) Specification
 - [ ] Part 08 - API Gateway - CloudFormation
