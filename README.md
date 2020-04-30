@@ -61,7 +61,7 @@ Docker version 19.03.8, build afacb8b7f0
 - [x] [Part 04 - Deploy to AWS environment - dotnet lambda](netcore3.1/part-04/)
 - [x] [Part 05 - Complex input / output and logging](netcore3.1/part-05/)
 - [x] [Part 06 - API Gateway - Introduction](netcore3.1/part-06/)
-- [ ] Part 07 - API Gateway - OpenAPI (Swagger) Specification
+- [x] [Part 07 - API Gateway - Open API Specification](netcore3.1/part-07/)
 - [ ] Part 08 - API Gateway - CloudFormation
 - [ ] Part 09 - API Gateway - Lambda integration
 - [ ] Part 10 - API Gateway - Proxy integration
