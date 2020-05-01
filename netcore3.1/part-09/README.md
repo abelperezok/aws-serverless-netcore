@@ -7,7 +7,7 @@ In this part we'll see how to integrate a Lambda function with API Gateway using
 In the following sections we will create a Lambda integration using three different implementations in order to better understand the details. First, using purely AWS CLI, then from an Open API file and finally with a CloudFormation template.
 
 * [AWS CLI](#api-gateway-lambda-integration-using-aws-cli)
-* [Open API (Swagger)](#api-gateway-lambda-integration-using-open-api)
+* [Open API](#api-gateway-lambda-integration-using-open-api)
 * [CloudFormation](#api-gateway-lambda-integration-using-cloudformation)
 
 ## Prepare the Lambda function
