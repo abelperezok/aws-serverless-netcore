@@ -1,0 +1,108 @@
+Description: Template to create a serverless web api 
+
+Resources:
+  AWSLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: PermitLambda
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              Resource: arn:aws:logs:*:*:*
+
+  HelloLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: project.lambda::project.lambda.Function::HelloHandler
+      Role: !GetAtt AWSLambdaExecutionRole.Arn
+      Code:
+        S3Bucket: abelperez-temp
+        S3Key: project-lambda/project-lambda.zip
+      Runtime: dotnetcore3.1
+      Timeout: 30
+
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: Serverless API
+      Description: Serverless API - Using CloudFormation
+
+  ApiGatewayResourceHello:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
+      PathPart: hello
+      RestApiId: !Ref ApiGatewayRestApi
+
+  ApiGatewayMethodHelloGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId: !Ref ApiGatewayResourceHello
+      RestApiId: !Ref ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HelloLambda.Arn}/invocations
+        PassthroughBehavior: NEVER
+        RequestTemplates:
+          application/json: |
+            {
+              "Name": "$input.params('name')",
+              "Age": $input.params('age')
+            }
+        IntegrationResponses:
+          - StatusCode: '200'
+            SelectionPattern: ''
+            ResponseParameters: {}
+            ResponseTemplates: 
+              application/json: |
+                  #set ($root=$input.path('$')) 
+                  {
+                    "Message": "Dear $root.Name, you are#if(!$root.Old) not#end old."
+                  }
+      MethodResponses:
+        - ResponseParameters: {}
+          ResponseModels: {}
+          StatusCode: '200'
+
+
+  ApiGatewayLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt HelloLambda.Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestApi}/*/GET/hello
+
+
+  ApiGatewayDeployment202005011747:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+      StageName: dev
+    DependsOn:
+      - ApiGatewayMethodHelloGet
+
+Outputs:
+  ApiEndpoint:
+    Description: "Endpoint to communicate with the API"
+    Value: !Sub https://${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/hello

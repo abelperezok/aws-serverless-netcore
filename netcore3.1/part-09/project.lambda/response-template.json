@@ -1,0 +1,3 @@
+{
+    "application/json": "#set ($root=$input.path('$'))\n{\n\"Message\": \"Dear $root.Name, you are#if(!$root.Old) not#end old.\"\n}"
+}

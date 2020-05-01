@@ -1,0 +1,3 @@
+{
+    "application/json": "{\"Name\":\"$input.params('name')\",\"Age\":$input.params('age')}"
+}
