@@ -1,0 +1,118 @@
+Description: Template to create a serverless web api 
+
+Resources:
+
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: Serverless API
+      Description: Serverless API - Using CloudFormation
+
+  ApiGatewayResourceHello:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
+      PathPart: hello
+      RestApiId: !Ref ApiGatewayRestApi
+
+  ApiGatewayMethodHelloGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId: !Ref ApiGatewayResourceHello
+      RestApiId: !Ref ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        Type: MOCK
+        PassthroughBehavior: NEVER
+        RequestTemplates:
+          application/json: |
+            {
+              "statusCode" : 200
+            }
+        IntegrationResponses:
+          - StatusCode: '200'
+            SelectionPattern: ''
+            ResponseParameters: {}
+            ResponseTemplates:
+              application/json: |
+                {
+                  "message": "hello 123"
+                }
+      MethodResponses:
+        - ResponseParameters: {}
+          ResponseModels: {}
+          StatusCode: '200'
+
+
+  ApiGatewayResourceHelloId:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !Ref ApiGatewayResourceHello
+      PathPart: "{id}"
+      RestApiId: !Ref ApiGatewayRestApi
+
+  ApiGatewayMethodHelloIdGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters:
+        method.request.path.id: true
+      ResourceId: !Ref ApiGatewayResourceHelloId
+      RestApiId: !Ref ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        Type: MOCK
+        PassthroughBehavior: NEVER
+        RequestTemplates:
+          application/json: |
+            {
+            #if( $input.params('id') == 123 )
+              "statusCode": 200
+            #else
+              "statusCode": 404
+            #end
+            }
+        IntegrationResponses:
+          - StatusCode: '200'
+            SelectionPattern: '200'
+            ResponseParameters: {}
+            ResponseTemplates:
+              application/json: |
+                {
+                  "id": "123",
+                  "name": "name123"
+                }
+          - StatusCode: '404'
+            SelectionPattern: '404'
+            ResponseParameters: {}
+            ResponseTemplates:
+              application/json: |
+                {
+                  "message": "ID Not Found"
+                }
+      MethodResponses:
+        - ResponseParameters: {}
+          ResponseModels: {}
+          StatusCode: '200'
+        - ResponseParameters: {}
+          ResponseModels: {}
+          StatusCode: '404'
+
+
+  ApiGatewayDeployment202005011114:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+      StageName: dev
+    DependsOn:
+      - ApiGatewayMethodHelloGet
+      - ApiGatewayMethodHelloIdGet
+
+Outputs:
+  ApiEndpoint:
+    Description: "Endpoint to communicate with the API"
+    Value: !Sub https://${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/hello
