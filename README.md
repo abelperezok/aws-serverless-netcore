@@ -62,7 +62,7 @@ Docker version 19.03.8, build afacb8b7f0
 - [x] [Part 05 - Complex input / output and logging](netcore3.1/part-05/)
 - [x] [Part 06 - API Gateway - Introduction](netcore3.1/part-06/)
 - [x] [Part 07 - API Gateway - Open API Specification](netcore3.1/part-07/)
-- [ ] Part 08 - API Gateway - CloudFormation
+- [x] [Part 08 - API Gateway - CloudFormation](netcore3.1/part-08/)
 - [ ] Part 09 - API Gateway - Lambda integration
 - [ ] Part 10 - API Gateway - Proxy integration
 - [ ] Part 11 - Some back end code (DynamoDb)
