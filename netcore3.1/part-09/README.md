@@ -141,7 +141,7 @@ So far we've given permission to Lambda function to access CloudWatch logs so it
 
 ```shell
 $ aws lambda add-permission --function-name HelloLambda \
---statement-id project-api-cli-inovke-lambda \
+--statement-id project-api-cli-invoke-lambda \
 --action lambda:InvokeFunction \
 --principal apigateway.amazonaws.com \
 --source-arn arn:aws:execute-api:eu-west-1:123123123123:ryk941lawh/*/GET/hello
