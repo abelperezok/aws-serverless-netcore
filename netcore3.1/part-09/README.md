@@ -316,7 +316,7 @@ Just like the example using CLI, we need to grant the REST API permission to inv
 
 ```shell
 $ aws lambda add-permission --function-name HelloLambda \
---statement-id project-api-openapi-inovke-lambda \
+--statement-id project-api-openapi-invoke-lambda \
 --action lambda:InvokeFunction \
 --principal apigateway.amazonaws.com \
 --source-arn arn:aws:execute-api:eu-west-1:123123123123:fjw1w4q0q8/*/GET/hello
