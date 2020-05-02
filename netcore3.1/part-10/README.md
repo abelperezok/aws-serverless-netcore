@@ -367,7 +367,7 @@ In this section, we declare the resource /hello and a GET method accepting param
 ```yaml
       x-amazon-apigateway-integration:
         type: aws_proxy
-        uri: arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:976153948458:function:HelloLambdaProxy/invocations
+        uri: arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:12123123123:function:HelloLambdaProxy/invocations
         httpMethod: POST
         responses:
           "default":
