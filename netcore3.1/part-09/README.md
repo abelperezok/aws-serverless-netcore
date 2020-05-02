@@ -217,7 +217,7 @@ $ aws iam delete-role --role-name HelloLambdaRole
 
 In this implementation we'll declare an Open API file where apart from the API definition, there will be the API Gateway integration extensions that are not part of the original specification. They are identified by **x-amazon-apigateway** prefix.
 
-### Create the Swagger file
+### Create the Open API file
 
 ```yaml
 openapi: "3.0.1"
@@ -287,11 +287,11 @@ In this section, we declare the resource /hello and a GET method with two parame
                 }
 ```
 
-Here we use the swagger extension **x-amazon-apigateway-integration** where we define what Lambda function will be invoked. The request template and response template are the same as above, just now taking advantage of YAML syntax that allows multi-line text. 
+Here we use the Open API extension **x-amazon-apigateway-integration** where we define what Lambda function will be invoked. The request template and response template are the same as above, just now taking advantage of YAML syntax that allows multi-line text. 
 
 ### Import the REST API
 
-With the Swagger ready, and assuming we still have the Lambda function deployed, we can now import the REST API.
+With the Open API file ready, and assuming we still have the Lambda function deployed, we can now import the REST API.
 
 ```shell
 $ aws apigateway import-rest-api --body fileb://openapi.yaml
@@ -316,7 +316,7 @@ Just like the example using CLI, we need to grant the REST API permission to inv
 
 ```shell
 $ aws lambda add-permission --function-name HelloLambda \
---statement-id project-api-swagger-inovke-lambda \
+--statement-id project-api-openapi-inovke-lambda \
 --action lambda:InvokeFunction \
 --principal apigateway.amazonaws.com \
 --source-arn arn:aws:execute-api:eu-west-1:123123123123:fjw1w4q0q8/*/GET/hello
