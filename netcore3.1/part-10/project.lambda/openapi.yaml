@@ -1,0 +1,42 @@
+openapi: "3.0.1"
+info:
+  title: Project API Proxy
+  version: "1.0"
+  description: A simple API written using OpenAPI Specification with Lambda Proxy integration
+
+paths:
+  /hello:
+    get:
+      summary: Simple Lambda Proxy integration
+      description: Simple Lambda Proxy integration with a function previously created.
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: The person's name
+          schema:
+            type: string
+        - name: age
+          in: query
+          required: true
+          description: The person's age
+          schema:
+            type: integer
+      responses:
+        200:
+          description: A normal output name / old
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Message:
+                    type: string
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        uri: arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:12123123123:function:HelloLambdaProxy/invocations
+        httpMethod: POST
+        responses:
+          "default":
+            statusCode: 200
+

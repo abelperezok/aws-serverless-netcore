@@ -1,0 +1,11 @@
+{
+    "region" : "eu-west-1",
+    "function-name" : "HelloLambdaProxy",
+    "function-handler" : "project.lambda::project.lambda.Function::HelloHandler",
+    "function-memory-size" : 128,
+    "function-role"        : "HelloLambdaRole",
+    "function-timeout"     : 30,
+    "function-runtime"     : "dotnetcore3.1",
+    "s3-bucket"            : "abelperez-temp",
+    "s3-prefix"            : "project-lambda/"
+}
