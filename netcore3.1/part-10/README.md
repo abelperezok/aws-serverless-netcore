@@ -55,7 +55,7 @@ In this implementation, the Lambda function is no longer receiving or returning 
 
 Now the Lambda function is responsible for fetching the input data directly from the query string parameters which is provided inside the apigProxyEvent object. 
 
-If we were to read the input from the request body i.e the HTTP request is a POST instead, then the change in the code would be as simple as replacing the input local variable with this line 
+If we were to read the input from the request body i.e the HTTP request is a POST instead, then the change in the code would be as simple as replacing the input local variable with this line:
 
 ```cs
 var input = JsonSerializer.Deserialize<LambdaInput>(apigProxyEvent.Body);
@@ -114,7 +114,7 @@ $ aws lambda create-function --function-name HelloLambdaProxy \
 
 ## Test the function in isolation before integrating
 
-Use dotnet lambda invoke-function command for simplicity, here are two examples to cover both scenarios. First, expecting Old:false.
+Use ```dotnet lambda invoke-function``` command for simplicity, here are two examples to cover both scenarios.
 
 ```shell
 $ dotnet lambda invoke-function -fn HelloLambdaProxy -p '{"QueryStringParameters": {"name":"Abel","age":"33"}}' --region eu-west-1
@@ -124,7 +124,7 @@ $ dotnet lambda invoke-function -fn HelloLambdaProxy -p '{"QueryStringParameters
 
 Notice the payload in this case is wrapped in a 'QueryStringParameters' object, this is to be compliant with the proxy integration. The object we passed has to match the query string parameter names expectations inside the Lambda function.
 
-Also, the response payload contains more information: status code, headers and body. Don't worry about the \u022 characters, it's just the serialization mechanism being super compliant with the encoding. API Gateway will decode that and present it totally readable. 
+Also, the response payload contains more information: status code, headers and body. Don't worry about the \u0022 characters, it's just the serialization mechanism being super compliant with the encoding. API Gateway will decode that and present it totally readable. 
 
 ```
 ...
@@ -330,7 +330,7 @@ info:
 paths:
 ```
 
-Just like the previous example, the first section contains general metadata about the API.
+Just like in the previous part, the first section contains general metadata about the API.
 
 ```yaml
   /hello:
@@ -467,34 +467,6 @@ Delete the role.
 ```shell
 $ aws iam delete-role --role-name HelloLambdaRole
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## API Gateway Lambda integration using CloudFormation
 
@@ -651,6 +623,16 @@ $ curl -X GET "https://ua6ix62tfi.execute-api.eu-west-1.amazonaws.com/dev/hello?
 $ curl -X GET "https://ua6ix62tfi.execute-api.eu-west-1.amazonaws.com/dev/hello?name=Abel&age=88"
 
 {"Message":"Dear Abel, you are old."}
+```
+
+### Cleaning up
+
+```shell
+$ aws cloudformation delete-stack --stack-name project-lambda-cfn-api-proxy
+```
+
+```shell
+$ aws cloudformation wait stack-delete-complete --stack-name project-lambda-cfn-api-proxy
 ```
 
 ## Conclusion
