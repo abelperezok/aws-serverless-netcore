@@ -288,7 +288,7 @@ We can see it has indeed created both the role and the function as it uses Cloud
 
 ### Invoking the function
 
-Once it's done, we can continue to use ```dotnet lambda invoke``` to invoke the function as we did before to test it's working. One detail to remember is that the function name has been changed by CloudFormation.
+Once it's done, we can continue to use ```dotnet lambda invoke-function``` to invoke the function as we did before to test it's working. One detail to remember is that the function name has been changed by CloudFormation.
 
 ```shell
 $ dotnet lambda invoke-function \
