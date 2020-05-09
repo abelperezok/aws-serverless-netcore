@@ -65,5 +65,6 @@ Docker version 19.03.8, build afacb8b7f0
 - [x] [Part 08 - API Gateway - CloudFormation](netcore3.1/part-08/)
 - [x] [Part 09 - API Gateway - Lambda integration](netcore3.1/part-09/)
 - [x] [Part 10 - API Gateway - Proxy integration](netcore3.1/part-10/)
-- [ ] Part 11 - Some back end code (DynamoDb)
-- [ ] Part 12 - TBD
+- [x] [Part 11 - Persisting data - DynamoDB - Introduction](netcore3.1/part-11/)
+- [ ] Part 12 - DynamoDB - Lambda - CLI
+- [ ] Part 13 - DynamoDB - Lambda - CloudFormation
