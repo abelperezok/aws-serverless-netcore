@@ -1,0 +1,16 @@
+{
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+              "dynamodb:PutItem",
+              "dynamodb:UpdateItem",
+              "dynamodb:BatchWriteItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:eu-west-1:123123123123:table/dynamodb_test_lambda",
+                "arn:aws:dynamodb:eu-west-1:123123123123:table/dynamodb_test_lambda/index/*"
+            ]
+        }
+    ]
+}

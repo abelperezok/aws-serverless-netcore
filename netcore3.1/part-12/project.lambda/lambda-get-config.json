@@ -1,0 +1,13 @@
+
+{
+    "region" : "eu-west-1",
+    "function-name" : "GetItems",
+    "function-handler" : "project.lambda::project.lambda.Function::GetHandler",
+    "function-memory-size" : 128,
+    "function-role"        : "GetItemsRole",
+    "function-timeout"     : 30,
+    "function-runtime"     : "dotnetcore3.1",
+    "s3-bucket"            : "abelperez-temp",
+    "s3-prefix"            : "project-lambda/",
+    "environment-variables": "TableName=dynamodb_test_lambda"
+}

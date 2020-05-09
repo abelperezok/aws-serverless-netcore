@@ -1,0 +1,18 @@
+{
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:BatchGetItem",
+                "dynamodb:DescribeTable"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:eu-west-1:123123123123:table/dynamodb_test_lambda",
+                "arn:aws:dynamodb:eu-west-1:123123123123:table/dynamodb_test_lambda/index/*"
+            ]
+        }
+    ]
+}

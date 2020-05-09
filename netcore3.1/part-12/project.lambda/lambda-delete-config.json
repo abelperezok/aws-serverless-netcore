@@ -1,0 +1,13 @@
+
+{
+    "region" : "eu-west-1",
+    "function-name" : "DeleteItem",
+    "function-handler" : "project.lambda::project.lambda.Function::DeleteHandler",
+    "function-memory-size" : 128,
+    "function-role"        : "DeleteItemRole",
+    "function-timeout"     : 30,
+    "function-runtime"     : "dotnetcore3.1",
+    "s3-bucket"            : "abelperez-temp",
+    "s3-prefix"            : "project-lambda/",
+    "environment-variables": "TableName=dynamodb_test_lambda"
+}
