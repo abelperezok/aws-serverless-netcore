@@ -1,4 +1,4 @@
-# Part 11 - Persisting data - DynamoDB - Intro
+# Part 11 - Persisting data - DynamoDB - Introduction
 
 After all previous parts, we've made to the point where we can execute server logic in response to an HTTP request through API Gateway via Lambda / Proxy integration. In many cases, we need to store the state but serverless are inherently stateless, so we need to store it somewhere else. 
 
