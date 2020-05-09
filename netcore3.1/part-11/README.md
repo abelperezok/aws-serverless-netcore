@@ -1,8 +1,8 @@
 # Part 11 - Persisting data - DynamoDB - Introduction
 
-After all previous parts, we've made to the point where we can execute server logic in response to an HTTP request through API Gateway via Lambda / Proxy integration. In many cases, we need to store the state but serverless are inherently stateless, so we need to store it somewhere else. 
+After all previous parts, we've made it to the point where we can execute server logic in response to an HTTP request through API Gateway via Lambda / Proxy integration. In many cases, we need to store the state but serverless is inherently stateless, so we need to store it somewhere else. 
 
-One popular destination is DynamoDB because of its fast response time and the serverless nature of the service offering by AWS. In this part, we'll see how to use the most common operations provided by DynamoDB from our code in some Lambda functions. 
+One popular destination is DynamoDB because of its fast response time and the serverless nature of the service offering by AWS. In this part, we'll see how to use the most common operations provided by DynamoDB using the AWS CLI. 
 
 A common example tends to be the classical ToDo list, where at the very least, we add and remove items from a list. This is the perfect excuse to introduce the need for some persistency. 
 
@@ -48,7 +48,7 @@ This model allows us to add more entities into the same table provided their par
 
 * Multiple items per type: GSI PK = "ENTITY"
 
-  - Get all users: GSI PK = "ITEM"
+  - Get all items: GSI PK = "ITEM"
  
 
 ## Creating the table
@@ -61,7 +61,7 @@ Following the trend from previous parts we'll see how to create the DynamoDB tab
 * Provisioned throughput: read and write capacity values for the table.
 * Global secondary indexes (GSIs): A collection of GSIs, for each one, we need to specify its name, key schema, projection type and provisioned throughput. 
 
-In this case, the line has been broken into several parts for readability given the length of this command. Pay special attention to the quotation of ```KeySchema``` property in ```--global-secondary-indexes``` parameter as it doesn't seem to follow the same pattern as other commands and also it's not very clear in the documentation as it lacks examples like this.
+In this case, the line has been broken into several parts for readability given the length of this command. Pay special attention to the quotation of ```KeySchema``` property in ```--global-secondary-indexes``` parameter. It doesn't seem to follow the same pattern as other commands and also it's not very clear in the documentation because it lacks examples like this.
 
 ```shell
 $ TABLE_NAME=dynamodb_test_lambda
@@ -117,7 +117,7 @@ $ aws dynamodb list-tables
 
 ## Working with data
 
-Just after creating the table, there is no data, if run the query intended to get all items in the table, no items are returned back. 
+Just after creating the table, there is no data, if we run the query intended to get all **Items** in the table, no **Items** are returned back. 
 
 ```shell
 $ aws dynamodb query \
@@ -133,7 +133,7 @@ $ aws dynamodb query \
 }
 ```
 
-This query uses the GSI1 index to find in its partition key, records whose values is "ITEM", in case we add more entities in the future.
+This query uses the GSI1 index to find in its partition key, records whose values are "ITEM", in case we add more entities in the future.
 
 Let's add some data, to do that, we use the ```put-item``` command to add new records, the data provided is a JSON specifying each of the attributes defined above as well as its data type, in this particular scenario, all of them are string ("S").
 
@@ -198,7 +198,7 @@ aws dynamodb query \
     "ConsumedCapacity": null
 }
 ```
-On note about the ```put-item``` command, it can act as both INSERT or UPDATE, DynamoDB checks the primary key, if there is a record with the same key, it will replace the non-key attributes with the supplied attributes and values.
+**One note** about the ```put-item``` command, it can act as both INSERT or UPDATE, DynamoDB checks the primary key, if there is a record with the same key, it will replace the non-key attributes with the supplied attributes and values.
 
 if we want to only update some attributes while keeping the rest untouched, then ```update-item``` command should be used instead.
 
@@ -236,7 +236,7 @@ And we are back to the initial state with this table.
 
 The only resource used is the DynamoDB table, so to clean up, the only step consists of deleting the table by using the ```delete-table``` command.
 
-Optionally this can be followed by another wait command, this time until the table doesn't exist any more.
+Optionally it can be followed by another wait command, this time until the table doesn't exist any more.
 
 ```shell
 $ aws dynamodb delete-table --table-name $TABLE_NAME
