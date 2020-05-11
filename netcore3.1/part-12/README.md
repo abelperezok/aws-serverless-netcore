@@ -331,7 +331,7 @@ Payload:
 
 ```
 
-Let's invoke PutItem a couple of times with items 1 and 2. 
+Invoke PutItem a couple of times with items 1 and 2. 
 
 ```shell
 $ dotnet lambda invoke-function -fn PutItem -p '{"Id":"1", "Name":"Item 1"}' --region eu-west-1
@@ -349,7 +349,7 @@ Payload:
 
 ```
 
-Let's verify that if we invoke GetItems again, we effectively get the two items previously inserted.
+Verify that if we invoke GetItems again, we effectively get the two items previously inserted.
 
 ```shell
 $ dotnet lambda invoke-function -fn GetItems --region eu-west-1
@@ -359,7 +359,7 @@ Payload:
 
 ```
 
-Finally, let's delete both items by invoking DeleteItem
+Finally, let's delete both items by invoking DeleteItem.
 
 
 ```shell
@@ -377,7 +377,6 @@ Payload:
 {"Success":true}
 
 ```
-
 
 After deleting the two items from the table, if we invoke GetItems again, it will return an empty list, which brings us back to the initial state.
 
