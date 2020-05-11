@@ -1,0 +1,185 @@
+Description: Template to create 3 Lambda functions that access DynamoDB 
+
+Resources:
+  
+  # Get Items Execution Role
+  GetItemsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Policies:
+        - PolicyName: GetItemsRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action:
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:BatchGetItem
+              - dynamodb:DescribeTable
+              Resource: 
+                - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ItemsTable}
+                - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ItemsTable}/index/*
+
+  # GetItems Lambda function
+  GetItems:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: project.lambda::project.lambda.Function::GetHandler
+      Role: !GetAtt GetItemsRole.Arn
+      Code:
+        S3Bucket: abelperez-temp
+        S3Key: project-lambda/project-lambda.zip
+      Runtime: dotnetcore3.1
+      Timeout: 30
+      Environment:
+        Variables:
+          TableName: !Ref ItemsTable
+
+
+  # Put Item Execution Role
+  PutItemRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Policies:
+        - PolicyName: PutItemRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action:
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:BatchWriteItem
+              Resource: 
+                - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ItemsTable}
+                - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ItemsTable}/index/*
+
+  # PutItem Lambda function
+  PutItem:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: project.lambda::project.lambda.Function::PutHandler
+      Role: !GetAtt PutItemRole.Arn
+      Code:
+        S3Bucket: abelperez-temp
+        S3Key: project-lambda/project-lambda.zip
+      Runtime: dotnetcore3.1
+      Timeout: 30
+      Environment:
+        Variables:
+          TableName: !Ref ItemsTable
+
+
+  # Delete Item Execution Role
+  DeleteItemRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Policies:
+        - PolicyName: DeleteItemRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action:
+              - dynamodb:DeleteItem
+              Resource: 
+                - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ItemsTable}
+                - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ItemsTable}/index/*
+
+  # DeleteItem Lambda function
+  DeleteItem:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: project.lambda::project.lambda.Function::DeleteHandler
+      Role: !GetAtt DeleteItemRole.Arn
+      Code:
+        S3Bucket: abelperez-temp
+        S3Key: project-lambda/project-lambda.zip
+      Runtime: dotnetcore3.1
+      Timeout: 30
+      Environment:
+        Variables:
+          TableName: !Ref ItemsTable
+
+
+  # DynamoDb table
+  ItemsTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      KeySchema: 
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema: 
+            - AttributeName: GSI1
+              KeyType: HASH
+            - AttributeName: SK
+              KeyType: RANGE
+          Projection: 
+            ProjectionType: ALL
+          ProvisionedThroughput: 
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
+
+Outputs:
+  TableName:
+    Description: "DynamoDb table for Items"
+    Value: !Ref ItemsTable
+  GetItems:
+    Description: "GetItems Lambda function"
+    Value: !Ref GetItems
+  PutItem:
+    Description: "PutItem Lambda function"
+    Value: !Ref PutItem
+  DeleteItem:
+    Description: "DeleteItem Lambda function"
+    Value: !Ref DeleteItem        
