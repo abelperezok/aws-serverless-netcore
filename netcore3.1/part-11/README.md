@@ -198,7 +198,7 @@ aws dynamodb query \
     "ConsumedCapacity": null
 }
 ```
-**One note** about the ```put-item``` command, it can act as both INSERT or UPDATE, DynamoDB checks the primary key, if there is a record with the same key, it will replace the non-key attributes with the supplied attributes and values.
+**One note** about the ```put-item``` command, it can act as either INSERT or UPDATE, DynamoDB checks the primary key, if there is a record with the same key, it will replace the non-key attributes with the supplied attributes and values.
 
 if we want to only update some attributes while keeping the rest untouched, then ```update-item``` command should be used instead.
 
